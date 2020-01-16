@@ -1,0 +1,6 @@
+- hosts: all
+  become: yes
+  roles:
+  - role: common-utils
+  - role: docker-io
+  - role: activemq-classic-container

@@ -1,0 +1,12 @@
+- src: https://github.com/kofonfor/ansible-role-common-utils.git
+  version: ca85ae014692002e5960df9eb6a6c049d192e334
+  name: common-utils
+- src: https://github.com/kofonfor/ansible-role-docker-io.git
+  version: 998b6771fa2527eed2111db62487c2757a145e2a
+  name: docker-io
+- src: https://github.com/angstwad/docker.ubuntu.git
+  version: e57e367aec0476edf0c9f047c00a148c04cb008c
+  name: docker.ubuntu
+- src: https://github.com/kofonfor/ansible-role-activemq-classic-container.git
+  version: 5e2afa526e6a696987713f5156d38de831e8c801
+  name: activemq-classic-container
