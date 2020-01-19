@@ -3,4 +3,7 @@
   roles:
   - role: common-utils
   - role: docker-io
-  - role: activemq-classic-container
+  - role: java
+  - role: maven
+  - role: activemq-artemis-dockerized
+  - role: activemq-artemis-container

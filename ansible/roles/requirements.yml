@@ -10,3 +10,12 @@
 - src: https://github.com/kofonfor/ansible-role-activemq-classic-container.git
   version: 5e2afa526e6a696987713f5156d38de831e8c801
   name: activemq-classic-container
+- src: https://github.com/kofonfor/ansible-role-java.git
+  version: 4a7c982c62c7d09e1b98fd2239b3c663d2fff56c
+  name: java
+- src: https://github.com/kofonfor/ansible-role-maven.git
+  version: 41cc09b19277bf7a061bf72fa4dc861ff6c3b2ab
+  name: maven
+- src: https://github.com/kofonfor/ansible-role-activemq-artemis-dockerized.git
+  version: 4b68f197723fed92f6b156606d67fceb6a4bf80e
+  name: activemq-artemis-dockerized
