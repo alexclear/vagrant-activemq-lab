@@ -4,12 +4,12 @@
 $AMQ1_IP = "172.16.157.2"
 $AMQ2_IP = "172.16.157.3"
 $AMQ3_IP = "172.16.157.4"
-$AMQ1_NUM_CPUS = 2
-$AMQ2_NUM_CPUS = 2
-$AMQ3_NUM_CPUS = 2
-$AMQ1_MEM_MBS = 2048
-$AMQ2_MEM_MBS = 2048
-$AMQ3_MEM_MBS = 2048
+$AMQ1_NUM_CPUS = 4
+$AMQ2_NUM_CPUS = 4
+$AMQ3_NUM_CPUS = 4
+$AMQ1_MEM_MBS = 4096
+$AMQ2_MEM_MBS = 4096
+$AMQ3_MEM_MBS = 4096
 
 Vagrant.configure("2") do |config|
   config.vm.define "amq1" do |amq1|
