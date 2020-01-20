@@ -4,12 +4,15 @@
 $AMQ1_IP = "172.16.157.2"
 $AMQ2_IP = "172.16.157.3"
 $AMQ3_IP = "172.16.157.4"
+$AMQ4_IP = "172.16.157.5"
 $AMQ1_NUM_CPUS = 4
 $AMQ2_NUM_CPUS = 4
 $AMQ3_NUM_CPUS = 4
+$AMQ4_NUM_CPUS = 4
 $AMQ1_MEM_MBS = 4096
 $AMQ2_MEM_MBS = 4096
 $AMQ3_MEM_MBS = 4096
+$AMQ4_MEM_MBS = 4096
 
 Vagrant.configure("2") do |config|
   config.vm.define "amq1" do |amq1|
@@ -72,7 +75,6 @@ Vagrant.configure("2") do |config|
     amq3.vm.network "private_network", ip: $AMQ3_IP
 
     amq3.vm.provider :virtualbox do |v, override|
-      override.vm.synced_folder ".", "/vagrant"
       v.gui = false
       v.customize ["modifyvm", :id, "--cpus", $AMQ3_NUM_CPUS]
       v.customize ["modifyvm", :id, "--memory", $AMQ3_MEM_MBS]
@@ -81,7 +83,6 @@ Vagrant.configure("2") do |config|
     end
 
     amq3.vm.provider :libvirt do |v, override|
-      override.vm.synced_folder ".", "/vagrant", type: "nfs"
       v.cpu_mode = 'custom'
       v.cpu_model = 'kvm64'
       v.volume_cache = 'writeback'
@@ -93,7 +94,36 @@ Vagrant.configure("2") do |config|
     amq3.vm.provision "shell", inline: "apt-get install -y python"
     amq3.vm.provision "shell", inline: "sysctl net.ipv6.conf.all.disable_ipv6=1"
     amq3.vm.provision "shell", inline: "sysctl net.ipv6.conf.default.disable_ipv6=1"
-    amq3.vm.provision "ansible_local" do |ansible|
+  end
+
+  config.vm.define "amq4" do |amq4|
+    amq4.vm.box = "generic/ubuntu1804"
+    amq4.vm.hostname = "amq4"
+    amq4.vm.network "private_network", ip: $AMQ4_IP
+
+    amq4.vm.provider :virtualbox do |v, override|
+      override.vm.synced_folder ".", "/vagrant"
+      v.gui = false
+      v.customize ["modifyvm", :id, "--cpus", $AMQ4_NUM_CPUS]
+      v.customize ["modifyvm", :id, "--memory", $AMQ4_MEM_MBS]
+      v.customize ["modifyvm", :id, "--cableconnected1", "on"]
+      v.customize ["modifyvm", :id, "--cableconnected2", "on"]
+    end
+
+    amq4.vm.provider :libvirt do |v, override|
+      override.vm.synced_folder ".", "/vagrant", type: "nfs"
+      v.cpu_mode = 'custom'
+      v.cpu_model = 'kvm64'
+      v.volume_cache = 'writeback'
+      v.disk_bus = 'virtio'
+      v.cpus = $AMQ4_NUM_CPUS
+      v.memory = $AMQ4_MEM_MBS
+    end
+
+    amq4.vm.provision "shell", inline: "apt-get install -y python"
+    amq4.vm.provision "shell", inline: "sysctl net.ipv6.conf.all.disable_ipv6=1"
+    amq4.vm.provision "shell", inline: "sysctl net.ipv6.conf.default.disable_ipv6=1"
+    amq4.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "ansible/site.yml"
       ansible.config_file = "ansible/ansible.cfg"
       ansible.inventory_path = "ansible/inventory"
@@ -101,6 +131,7 @@ Vagrant.configure("2") do |config|
       ansible.galaxy_role_file = "ansible/roles/requirements.yml"
       ansible.galaxy_roles_path = "/etc/ansible/roles"
       ansible.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path} --force"
+      ansible.raw_arguments = ["--diff"]
       ansible.limit = "all"
     end
   end

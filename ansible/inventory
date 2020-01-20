@@ -1,3 +1,4 @@
 amq1 ansible_host=172.16.157.2 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/amq1/virtualbox/private_key
 amq2 ansible_host=172.16.157.3 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/amq2/virtualbox/private_key
 amq3 ansible_host=172.16.157.4 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/amq3/virtualbox/private_key
+amq4 ansible_host=172.16.157.5 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/amq4/virtualbox/private_key

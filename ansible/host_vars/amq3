@@ -1,0 +1,5 @@
+activemq_artemis_container_replication_ismaster: yes
+activemq_artemis_static_connectors:
+  - { name: "amq1", host: "172.16.157.2", port: 61616 }
+  - { name: "amq2", host: "172.16.157.3", port: 61616 }
+  - { name: "amq4", host: "172.16.157.5", port: 61616 }
